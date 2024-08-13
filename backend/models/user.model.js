@@ -2,43 +2,48 @@ import mongoose from "mongoose";
 import { generateProfilePicture, hashPassword } from "../helpers/helper.js";
 
 // create a new schema for user
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: [true, "Username is required"],
-    unique: true,
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: [true, "Username is required"],
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      index: { unique: true },
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+    profilePic: {
+      type: String,
+      default: generateProfilePicture,
+    },
+    searchHistory: {
+      type: Array,
+      default: [],
+    },
+    resetPasswordToken: String,
+    resetPasswordExpiresAt: Date,
+    verificationToken: String,
+    verificationExpiresAt: Date,
   },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    index: { unique: true },
+  {
+    timestamps: true,
   },
-  password: {
-    type: String,
-    required: [true, "Password is required"],
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
-  lastLogin: {
-    type: Date,
-    default: Date.now,
-  },
-  profilePic: {
-    type: String,
-    default: generateProfilePicture,
-  },
-  searchHistory: {
-    type: Array,
-    default: [],
-  },
-  resetPasswordToken: String,
-  resetPasswordExpiresAt: Date,
-  verificationToken: String,
-  verificationExpiresAt: Date,
-});
+);
 
 // hash the password before saving it to the database
 // by using the mongoose Pre-hooks
