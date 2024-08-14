@@ -3,6 +3,7 @@ import {
   generateTokenAndSetCookie,
   generateVerificationToken,
 } from "../helpers/helper.js";
+import { sendVerificationEmail } from "../services/mailtrap.service.js";
 
 // handle signup request
 export const signup = async (req, res) => {
@@ -49,6 +50,8 @@ export const signup = async (req, res) => {
 
     // generate the token for email verification
     const verificationToken = generateVerificationToken();
+    await sendVerificationEmail(email, verificationToken);
+
     // create new user and save to database
     const newUser = new User({
       username,
