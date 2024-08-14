@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { ENV_VARS } from "../config/envVars.js";
+import { ENV_VARS } from "../config/env.config.js";
 
 // Constants for helper functions
 const PROILE_PICS = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];

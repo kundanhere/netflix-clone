@@ -1,6 +1,6 @@
 import express from "express";
-import { ENV_VARS } from "./config/envVars.js";
-import { connectDB } from "./config/db.js";
+import { ENV_VARS } from "./config/env.config.js";
+import { connectDB } from "./config/db.config.js";
 import authRoutes from "./routes/auth.route.js";
 
 // Create a new Express application instance

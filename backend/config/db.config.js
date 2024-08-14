@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ENV_VARS } from "./envVars.js";
+import { ENV_VARS } from "./env.config.js";
 import { getCurrentDateTime } from "../helpers/helper.js";
 
 // Connect to MongoDB
