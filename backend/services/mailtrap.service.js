@@ -5,8 +5,15 @@ import {
   EMAIL_TEMPLATE_VARIABLES,
 } from "../config/mailtrap.config.js";
 
-// when user signup an account,
-// send a verification email with verification code to the specified email address.
+/**
+ * Sends a verification email with a verification code to the specified email address.
+ * This function is called when a user signs up an account.
+ *
+ * @param {string} email - The email address to send the verification email to.
+ * @param {string} verificationCode - The verification code to include in the email.
+ * @returns {Promise<void>} - A promise that resolves when the email is sent successfully.
+ * @throws {Error} - Throws an error if the email sending fails.
+ */
 export const sendVerificationEmail = async (email, verificationCode) => {
   // Prepare the email content with the verification code
   const recipients = [{ email }];

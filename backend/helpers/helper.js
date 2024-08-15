@@ -6,7 +6,15 @@ import { ENV_VARS } from "../config/env.config.js";
 const PROILE_PICS = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];
 const SALT_WORK_FACTOR = 10;
 
-// Function to get current date and time in a specified format
+/**
+ * This function retrieves the current date and time in a specified format.
+ *
+ * @returns {string} The current date and time in the format: 'Last Sync: dd/mm/yyyy @ hh:mm:ss'.
+ *
+ * @example
+ * const currentDateTime = getCurrentDateTime();
+ * console.log(currentDateTime); // Output: 'Last Sync: 25/12/2022 @ 14:30:00'
+ */
 export const getCurrentDateTime = () => {
   const currentdate = new Date();
   const datetime =
@@ -25,18 +33,51 @@ export const getCurrentDateTime = () => {
   return datetime;
 };
 
-// Logic to generate a random profile picture URL
+/**
+ * This function generates a random profile picture URL from a predefined list.
+ *
+ * @returns {string} A randomly selected profile picture URL from the PROILE_PICS array.
+ *
+ * @example
+ * const profilePicture = generateProfilePicture();
+ * console.log(profilePicture); // Output: '/avatar2.png'
+ */
 export const generateProfilePicture = () => {
   const randomNumber = Math.floor(Math.random() * PROILE_PICS.length);
   return PROILE_PICS[randomNumber];
 };
 
-// Function to generate verification token
+/**
+ * This function generates a random verification token.
+ *
+ * @returns {string} A six-digit random number string used for user verification.
+ *
+ * @example
+ * const verificationToken = generateVerificationToken();
+ * console.log(verificationToken); // Output: '123456'
+ */
 export const generateVerificationToken = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Function to generate token and set cookie
+/**
+ * This function generates a JWT token and sets a cookie with the token.
+ *
+ * @param {Object} payload - The payload to be included in the JWT token.
+ * @param {Object} res - The response object to set the cookie.
+ *
+ * @returns {string} The generated JWT token.
+ *
+ * @example
+ * const payload = { userId: 123, email: 'user@example.com' };
+ * const res = {
+ *   cookie: (name, value, options) => {
+ *     // Implementation to set the cookie
+ *   }
+ * };
+ * const token = generateTokenAndSetCookie(payload, res);
+ * console.log(token); // Output: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+ */
 export const generateTokenAndSetCookie = (payload, res) => {
   // Generate a token
   const token = jwt.sign({ payload }, ENV_VARS.JWT_SECRET, { expiresIn: "7d" });
@@ -51,11 +92,27 @@ export const generateTokenAndSetCookie = (payload, res) => {
   return token;
 };
 
-// Logic to hash the password using a secure hashing algorithm
+/**
+ * This function securely hashes a password using the bcrypt library.
+ *
+ * @param {string} password - The password to be hashed.
+ *
+ * @returns {Promise<string>} A promise that resolves to the hashed password.
+ *
+ * @example
+ * const password = 'userPassword123';
+ * hashPassword(password)
+ *   .then((hashedPassword) => {
+ *     console.log(hashedPassword); // Output: '$2b$10$...hashed password...'
+ *   })
+ *   .catch((error) => {
+ *     console.error(error);
+ *   });
+ */
 export const hashPassword = async (password) => {
-  // generate a salt
+  // Generate a salt
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-  // hash the password using our new salt
+  // Hash the password using our new salt
   const hashedPassword = await bcrypt.hash(password, salt);
   return hashedPassword;
 };

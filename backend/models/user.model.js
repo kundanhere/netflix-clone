@@ -1,7 +1,23 @@
 import mongoose from "mongoose";
 import { generateProfilePicture, hashPassword } from "../helpers/helper.js";
 
-// create a new schema for user
+/**
+ * Defines a new schema for a user in the application.
+ *
+ * @typedef {mongoose.Schema} UserSchema
+ * @property {string} username - The username of the user.
+ * @property {string} email - The email of the user.
+ * @property {string} password - The password of the user.
+ * @property {boolean} isVerified - Indicates whether the user's email is verified.
+ * @property {Date} lastLogin - The date and time of the user's last login.
+ * @property {string} profilePic - The URL of the user's profile picture.
+ * @property {Array} searchHistory - The user's search history.
+ * @property {string} resetPasswordToken - The token used for password reset.
+ * @property {Date} resetPasswordExpiresAt - The expiration date of the password reset token.
+ * @property {string} verificationToken - The token used for email verification.
+ * @property {Date} verificationExpiresAt - The expiration date of the email verification token.
+ */
+
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -45,8 +61,14 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-// hash the password before saving it to the database
-// by using the mongoose Pre-hooks
+/**
+ * Hash the password before saving it to the database using mongoose Pre-hooks.
+ * This function is executed before saving a user document.
+ *
+ * @param {mongoose.HookNextFunction} next - The next middleware function in the stack.
+ * @returns {void}
+ * @throws Will throw an error if hashing the password fails.
+ */
 userSchema.pre("save", async function (next) {
   // only hash the password if it has been modified (or is new)
   if (!this.isModified("password")) return next();
@@ -61,7 +83,14 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-// create and export a new model using the user schema
+/**
+ * Creates and exports a new Mongoose model using the provided user schema.
+ *
+ * @function
+ * @param {mongoose.Schema} userSchema - The Mongoose schema to be used for creating the model.
+ * @returns {mongoose.Model<mongoose.Document>} - The newly created Mongoose model.
+ * @throws Will throw an error if the model creation fails.
+ */
 const User = mongoose.model("User", userSchema);
 
 export default User;

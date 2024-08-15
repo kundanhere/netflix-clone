@@ -5,7 +5,11 @@ import {
 } from "../helpers/helper.js";
 import { sendVerificationEmail } from "../services/mailtrap.service.js";
 
-// handle signup request
+/**
+ * Handles the signup request by validating user input, checking for existing users,
+ * generating a verification token, sending a verification email, creating a new user,
+ * and returning a success message with the user's information.
+ */
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -85,12 +89,51 @@ export const signup = async (req, res) => {
   }
 };
 
+/**
+ * Handles the login request by validating user input, checking for existing users,
+ * sending a verification email, and returning a success message with the user's information
+ * if the credentials are valid.
+ * @param {string} req.body.email - The email of the user trying to log in.
+ * @param {string} req.body.password - The password of the user trying to log in.
+ */
 export const login = async (req, res) => {
   // code for login logic
   res.send("Login Route");
 };
 
+/**
+ * Handles the logout request by invalidating the user's session and removing the
+ * authentication token from the client's cookie.
+ */
 export const logout = async (req, res) => {
   // code for logout logic
   res.send("Logout Route");
+};
+
+/**
+ * Handles the email verification request by validating the user's email and
+ * verificationToken, updating the user's account to verified, sending a welcome
+ * email and returning a success message.
+ */
+export const verifyEmail = async (req, res) => {
+  // code for verify email logic
+  res.send("Verify Email Route");
+};
+
+/**
+ * Handles the password reset confirmation request by validating user input, updating
+ * the user's password, and returning a success message.
+ */
+export const forgotPassword = async (req, res) => {
+  // code for forgot password logic
+  res.send("Forgot Password Route");
+};
+
+/**
+ * Handles the password reset request by validating user input, sending a password reset
+ * email with a unique reset token, and returning a success message.
+ */
+export const resetPassword = async (req, res) => {
+  // code for password reset logic
+  res.send("Reset Password Route");
 };
