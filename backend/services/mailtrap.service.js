@@ -7,7 +7,7 @@ import {
 
 /**
  * Sends a verification email with a verification code to the specified email address.
- * This function is called when a user signs up an account.
+ * This function should call when a user signs up an account.
  *
  * @param {string} email - The email address to send the verification email to.
  * @param {string} verificationCode - The verification code to include in the email.
@@ -33,5 +33,31 @@ export const sendVerificationEmail = async (email, verificationCode) => {
     // In case of any error, log it and re-throw the error for proper handling
     console.error("Error sending verification email", error);
     throw new Error(`Couldn't send verification email: ${error.message}`);
+  }
+};
+
+/**
+ * Sends a welcome email to the specified email address.
+ * This function should call when a user successfully signs up an account.
+ */
+export const sendWelcomeEmail = async (email, name) => {
+  // Prepare the email content with the user's name and email
+  const recipients = [{ email }];
+  try {
+    const response = await mailtrapClient.send({
+      from: SENDER,
+      to: recipients,
+      template_uuid: EMAIL_TEMPLATE_IDS.welcome_email,
+      template_variables: {
+        ...EMAIL_TEMPLATE_VARIABLES,
+        name,
+      },
+    });
+    // If no error occurred, log the successful email sending
+    console.log("Welcome email sent successfully", response);
+  } catch (error) {
+    // In case of any error, log it and re-throw the error for proper handling
+    console.error("Error sending welcome email", error);
+    throw new Error(`Couldn't send welcome email: ${error.message}`);
   }
 };

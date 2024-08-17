@@ -3,7 +3,10 @@ import {
   generateTokenAndSetCookie,
   generateVerificationToken,
 } from "../helpers/helper.js";
-import { sendVerificationEmail } from "../services/mailtrap.service.js";
+import {
+  sendVerificationEmail,
+  sendWelcomeEmail,
+} from "../services/mailtrap.service.js";
 
 /**
  * Handles the signup request by validating user input, checking for existing users,
@@ -64,8 +67,6 @@ export const signup = async (req, res) => {
       verificationToken,
       verificationExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
     });
-
-    // save user in database
     await newUser.save();
 
     // if user registered successfully then
@@ -116,8 +117,43 @@ export const logout = async (req, res) => {
  * email and returning a success message.
  */
 export const verifyEmail = async (req, res) => {
-  // code for verify email logic
-  res.send("Verify Email Route");
+  const { code } = req.body;
+
+  try {
+    const user = await User.findOne({
+      verificationToken: code,
+      verificationExpiresAt: { $gt: Date.now() },
+    });
+
+    // checks if user is valid
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or expired verification code",
+      });
+    }
+
+    // update user's account to verified
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationExpiresAt = undefined;
+    await user.save();
+
+    // send welcome email to the user, and send success message
+    await sendWelcomeEmail(user.email, user.username);
+    res.status(200).json({
+      status: "success",
+      message: "Account verified successfully",
+      user: {
+        ...user._doc,
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    // log error and return error message in response
+    console.error("Error in logout controller", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 /**
