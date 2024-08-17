@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { ENV_VARS } from "./config/env.config.js";
 import { connectDB } from "./config/db.config.js";
 import authRoutes from "./routes/auth.route.js";
@@ -21,6 +22,12 @@ app.get("/", (req, res) => {
  * and make them available on req.body.
  */
 app.use(express.json());
+
+/**
+ * Uses cookieParser() middleware to parse incoming cookie headers
+ * and make them available on req.cookies.
+ */
+app.use(cookieParser());
 
 /**
  * Defines a route for the '/api/v1/account' path using the imported authRoutes.

@@ -148,7 +148,7 @@ export const login = async (req, res) => {
  * authentication token from the client's cookie.
  */
 export const logout = async (req, res) => {
-  res.clearCookie("netflix-token");
+  res.clearCookie("netflixToken");
   res.status(200).json({ success: true, message: "Logged out successfully" });
 };
 
@@ -269,6 +269,39 @@ export const resetPassword = async (req, res) => {
   } catch (error) {
     // log error and return error message in response
     console.error("Error in reset password controller", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+/**
+ * Checks if the user is authenticated by validating the user's ID from the request.
+ * If the user is authenticated, it retrieves the user's information from the database,
+ * removes the password field, and returns the user information.
+ * If the user is not authenticated, it returns a 401 Unauthorized response.
+ *
+ * @param {Object} req - The request object containing the user's ID in req.userId.
+ * @param {Object} res - The response object to send the response.
+ *
+ * @returns {Object} - If the user is authenticated, it returns a 200 OK response with the user information.
+ * If the user is not authenticated, it returns a 401 Unauthorized response.
+ * If an error occurs, it returns a 500 Internal Server Error response.
+ */
+export const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    // check if user exists
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // return user information if user is authenticated
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    // log error and return error message in response
+    console.error("Error in checkAuth controller", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };

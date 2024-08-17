@@ -5,14 +5,17 @@
  *
  * @module routes/auth
  * @requires express
+ * @requires middlewares/auth.middleware
  * @requires controllers/auth.controller
  */
 
 import express from "express";
+import { verifyToken } from "../middlewares/auth.middleware.js";
 import {
   login,
   signup,
   logout,
+  checkAuth,
   verifyEmail,
   forgotPassword,
   resetPassword,
@@ -22,6 +25,14 @@ import {
  * Express Router instance for handling authentication routes.
  */
 const router = express.Router();
+
+/**
+ * GET request handler to check user authentication (or authorization)
+ *
+ * @method GET
+ * @route /api/v1/account/auth
+ */
+router.get("/auth", verifyToken, checkAuth);
 
 /**
  * POST request handler for user signup.
