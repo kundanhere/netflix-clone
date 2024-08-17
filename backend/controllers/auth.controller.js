@@ -1,11 +1,14 @@
+import crypto from "crypto";
 import User from "../models/user.model.js";
 import {
   generateTokenAndSetCookie,
   generateVerificationToken,
+  getClientUrl,
 } from "../helpers/helper.js";
 import {
   sendVerificationEmail,
   sendWelcomeEmail,
+  sendPasswordResetEmail,
 } from "../services/mailtrap.service.js";
 
 /**
@@ -198,8 +201,36 @@ export const verifyEmail = async (req, res) => {
  * the user's password, and returning a success message.
  */
 export const forgotPassword = async (req, res) => {
-  // code for forgot password logic
-  res.send("Forgot Password Route");
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // generate the token for password reset
+    // and update user's resetToken and resetTokenExpiresAt fields
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpiresAt = Date.now() + 2 + 60 * 60 * 1000; // 2 hours
+    await user.save();
+
+    // send password reset link to the user via email, and send success message
+    const clientUrl = getClientUrl();
+    const resetPasswordUrl = `${clientUrl}/api/v1/account/forgot/password/${resetToken}`;
+
+    await sendPasswordResetEmail(user.email, resetPasswordUrl);
+
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset link sent" });
+  } catch (error) {
+    // log error and return error message in response
+    console.error("Error in forgot password controller", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 /**

@@ -116,3 +116,20 @@ export const hashPassword = async (password) => {
   const hashedPassword = await bcrypt.hash(password, salt);
   return hashedPassword;
 };
+
+/**
+ * This function constructs and returns the base URL for the client application based on the current environment.
+ *
+ * @returns {string} The base URL for the client application.
+ *
+ * @example
+ * const clientUrl = getClientUrl();
+ * console.log(clientUrl); // Output: 'http://localhost:3000' (or 'https://localhost:3000' in production)
+ */
+export const getClientUrl = () => {
+  const { NODE_ENV, CLIENT_HOST, CLIENT_PORT } = ENV_VARS;
+  if (NODE_ENV === "development") {
+    return `http://${CLIENT_HOST}:${CLIENT_PORT}`;
+  }
+  return `https://${CLIENT_HOST}:${CLIENT_PORT}`;
+};

@@ -37,16 +37,19 @@ export const SENDER = {
  * @constant {Object} EMAIL_TEMPLATE_IDS
  * @property {string} verification_email - The UUID of the verification email template.
  * @property {string} welcome_email - The UUID of the welcome email template.
+ * @property {string} reset_password_email - The UUID of the reset password email template.
  *
  * @example
  * import { EMAIL_TEMPLATE_IDS } from './mailtrap.config.js';
  *
  * console.log(EMAIL_TEMPLATE_IDS.verification_email); // '8168646a-586c-4e1e-a0c9-087bb1b46665'
  * console.log(EMAIL_TEMPLATE_IDS.welcome_email); // '00eecab8-06f1-42fa-a67c-45e7bd7a3d42'
+ * console.log(EMAIL_TEMPLATE_IDS.reset_password_email); // '005b8a30-c0ad-4d15-9440-bccbc01c9ecd'
  */
 export const EMAIL_TEMPLATE_IDS = {
   verification_email: "8168646a-586c-4e1e-a0c9-087bb1b46665",
   welcome_email: "00eecab8-06f1-42fa-a67c-45e7bd7a3d42",
+  reset_password_email: "005b8a30-c0ad-4d15-9440-bccbc01c9ecd",
 };
 
 /**
@@ -65,7 +68,7 @@ export const EMAIL_TEMPLATE_IDS = {
 export const EMAIL_TEMPLATE_VARIABLES = {
   name: "Test_Name",
   phone: "000000",
-  company_info_name: "Netflix Clone",
+  company_info_name: "NETFLIX CLONE",
   company_info_address: "Laxmi Nagar",
   company_info_city: "New Delhi",
   company_info_zip_code: "110091",

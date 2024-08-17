@@ -16,6 +16,7 @@ dotenv.config({ path: "../.env" });
  * @property {string} MONGO_URI - The MongoDB connection URI.
  * @property {number} PORT - The server port number. Default is 8000 if not specified.
  * @property {string} NODE_ENV - The environment mode. Default is 'development' if not specified.
+ * @property {string} CLIENT_URL - The server connection URL.
  * @property {string} JWT_SECRET - The secret key for JSON Web Tokens.
  * @property {string} TMDB_API_KEY - The API key for The Movie Database (TMDB).
  * @property {string} MAILTRAP_TOKEN - The token for Mailtrap SMTP service.
@@ -27,6 +28,8 @@ export const ENV_VARS = {
   MONGO_URI: process.env.MONGO_URI,
   PORT: process.env.SERVER_PORT || 8000,
   NODE_ENV: process.env.NODE_ENV || "development",
+  CLIENT_PORT: process.env.CLIENT_PORT || 3000,
+  CLIENT_HOST: process.env.CLIENT_HOST || "localhost",
 
   // JWT configuration
   JWT_SECRET: process.env.JWT_SECRET,
