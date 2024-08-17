@@ -96,3 +96,34 @@ export const sendPasswordResetEmail = async (email, url) => {
     throw new Error(`Couldn't send password reset email: ${error.message}`);
   }
 };
+
+/**
+ * Sends a password reset success email to the specified email address.
+ * This function should be called when a user successfully resets their password.
+ *
+ * @param {string} email - The email address to send the password reset success email to.
+ * @returns {Promise<void>} - A promise that resolves when the email is sent successfully.
+ * @throws {Error} - Throws an error if the email sending fails.
+ */
+export const sendPasswordResetSuccessEmail = async (email) => {
+  // Prepare the email content with the email
+  const recipients = [{ email }];
+  try {
+    const response = await mailtrapClient.send({
+      from: SENDER,
+      to: recipients,
+      template_uuid: EMAIL_TEMPLATE_IDS.reset_password_confirmation_email,
+      template_variables: {
+        ...EMAIL_TEMPLATE_VARIABLES,
+        email: email,
+        confirmation_timestamp: getCurrentDateTime(),
+      },
+    });
+    // If no error occurred, log the successful email sending
+    console.log("Password reset email sent successfully", response);
+  } catch (error) {
+    // In case of any error, log it and re-throw the error for proper handling
+    console.error("Error sending password reset email", error);
+    throw new Error(`Couldn't send password reset email: ${error.message}`);
+  }
+};

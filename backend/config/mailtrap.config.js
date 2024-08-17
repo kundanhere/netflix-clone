@@ -50,6 +50,7 @@ export const EMAIL_TEMPLATE_IDS = {
   verification_email: "8168646a-586c-4e1e-a0c9-087bb1b46665",
   welcome_email: "00eecab8-06f1-42fa-a67c-45e7bd7a3d42",
   reset_password_email: "005b8a30-c0ad-4d15-9440-bccbc01c9ecd",
+  reset_password_confirmation_email: "3b1e23ae-e0a6-44ff-ac63-3970bca6e2e7",
 };
 
 /**

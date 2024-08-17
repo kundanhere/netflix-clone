@@ -9,6 +9,7 @@ import {
   sendVerificationEmail,
   sendWelcomeEmail,
   sendPasswordResetEmail,
+  sendPasswordResetSuccessEmail,
 } from "../services/mailtrap.service.js";
 
 /**
@@ -238,6 +239,36 @@ export const forgotPassword = async (req, res) => {
  * email with a unique reset token, and returning a success message.
  */
 export const resetPassword = async (req, res) => {
-  // code for password reset logic
-  res.send("Reset Password Route");
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpiresAt: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid or expired reset token" });
+    }
+
+    // update user's password and reset fields
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiresAt = undefined;
+    await user.save();
+
+    // send password reset success email to the user, and send success message
+    await sendPasswordResetSuccessEmail(user.email);
+    res.status(200).json({
+      success: true,
+      message: "Password reset successfully",
+    });
+  } catch (error) {
+    // log error and return error message in response
+    console.error("Error in reset password controller", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
