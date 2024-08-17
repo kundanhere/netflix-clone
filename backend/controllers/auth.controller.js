@@ -98,8 +98,45 @@ export const signup = async (req, res) => {
  * @param {string} req.body.password - The password of the user trying to log in.
  */
 export const login = async (req, res) => {
-  // code for login logic
-  res.send("Login Route");
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
+
+    // check if password matches
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
+
+    // if user logged in successfully then
+    // create token and set token to cookie and return success message
+    const token = generateTokenAndSetCookie(user._id, res);
+
+    // update lastLogin field in the user document
+    user.lastLogin = new Date();
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Logged in successfully",
+      user: {
+        ...user._doc,
+        password: undefined, // remove password from the response body
+        accessToken: token,
+      },
+    });
+  } catch (error) {
+    // log error and return error message in response
+    console.error("Error in login controller", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 /**

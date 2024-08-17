@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 import { generateProfilePicture, hashPassword } from "../helpers/helper.js";
 
 /**
@@ -82,6 +83,26 @@ userSchema.pre("save", async function (next) {
     return next(error);
   }
 });
+
+/**
+ * Compares a given password with the user's hashed password.
+ *
+ * @function comparePassword
+ * @param {string} userPassword - The password provided by the user.
+ * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating whether the given password matches the user's hashed password.
+ * @throws Will throw an error if the comparison fails.
+ *
+ * @example
+ * const user = new User({ username: 'johnDoe', email: 'johndoe@example.com', password: 'password123' });
+ * await user.save();
+ * const isMatch = await user.comparePassword('password123');
+ * console.log(isMatch); // Output: true
+ */
+userSchema.methods.comparePassword = async function comparePassword(
+  userPassword,
+) {
+  return bcrypt.compare(userPassword, this.password);
+};
 
 /**
  * Creates and exports a new Mongoose model using the provided user schema.
