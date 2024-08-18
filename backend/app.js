@@ -1,8 +1,11 @@
 import express from "express";
+import cors from "cors";
 import cookieParser from "cookie-parser";
+
+import authRoutes from "./routes/auth.route.js";
 import { ENV_VARS } from "./config/env.config.js";
 import { connectDB } from "./config/db.config.js";
-import authRoutes from "./routes/auth.route.js";
+import { getClientUrl } from "./helpers/helper.js";
 
 /**
  * Initializes and configures the Express application instance.
@@ -11,11 +14,12 @@ import authRoutes from "./routes/auth.route.js";
  */
 const app = express();
 
-// Add middleware and routes to the Express application instance.
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
+/**
+ * Configures and applies the CORS middleware to the Express application instance.
+ * getClientUrl is a function that retrieves the client's base URL. (e.g. http://localhost:5173)
+ */
+const baseURL = getClientUrl();
+app.use(cors({ origin: baseURL, credentials: true }));
 
 /**
  * Uses express.json() middleware to parse incoming JSON requests
@@ -28,6 +32,10 @@ app.use(express.json());
  * and make them available on req.cookies.
  */
 app.use(cookieParser());
+
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
 
 /**
  * Defines a route for the '/api/v1/account' path using the imported authRoutes.
