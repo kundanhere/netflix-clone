@@ -75,4 +75,25 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
+
+  /**
+   * Checks the user's authentication status by making a request to the server.
+   *
+   * If the user is authenticated, it updates the store with the user's data and sets the authentication status to true.
+   * If the user is not authenticated, it clears the user data from the store and sets the authentication status to false.
+   *
+   */
+  checkAuth: async () => {
+    set({ isCheckingAuth: true, error: null });
+    try {
+      const response = axios.get(`${BASE_URL}/auth`);
+      set({
+        user: response.data.user,
+        isCheckingAuth: false,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      set({ error: null, isCheckingAuth: false, isAuthenticated: false });
+    }
+  },
 }));

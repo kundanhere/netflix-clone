@@ -1,9 +1,13 @@
+import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
+
+import RedirectRoute from "./components/RedirectRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import FloatingShape from "./components/FloatingShape";
+import EmailVerificationPage from "./pages/EmailVerificationPage";
 import SingUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
-import EmailVerificationPage from "./pages/EmailVerificationPage";
-import { Toaster } from "react-hot-toast";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -33,10 +37,38 @@ function App() {
         delay={2}
       />
       <Routes>
-        <Route path="/" element={"Home"} />
-        <Route path="/signup" element={<SingUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/verify/email" element={<EmailVerificationPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <RedirectRoute>
+              <SingUpPage />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RedirectRoute>
+              <LoginPage />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/verify/email"
+          element={
+            <ProtectedRoute>
+              <EmailVerificationPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Toaster />
     </div>
