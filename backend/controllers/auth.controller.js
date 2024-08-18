@@ -25,13 +25,13 @@ export const signup = async (req, res) => {
     if (!username || !email || !password) {
       return res
         .status(400)
-        .json({ success: false, meesage: "All fields are required" });
+        .json({ success: false, message: "All fields are required" });
     }
 
     // validate email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ success: false, meesage: "Invalid email" });
+      return res.status(400).json({ success: false, message: "Invalid email" });
     }
 
     // validate password
@@ -47,7 +47,7 @@ export const signup = async (req, res) => {
     if (existingUserByUsername) {
       return res
         .status(400)
-        .json({ success: false, meesage: "Username already exists" });
+        .json({ success: false, message: "Username already exists" });
     }
 
     // check if email already exists
@@ -55,7 +55,7 @@ export const signup = async (req, res) => {
     if (existingUserByEmail) {
       return res.status(400).json({
         success: false,
-        meesage: "User with this email already exists",
+        message: "User with this email already exists",
       });
     }
 
