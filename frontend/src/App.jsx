@@ -1,15 +1,26 @@
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 
+import { useAuthStore } from "./store/authStore";
 import RedirectRoute from "./components/RedirectRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FloatingShape from "./components/FloatingShape";
+import LoadingSpinner from "./components/LoadingSpinner";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import SingUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 
 function App() {
+  const { isCheckingAuth, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isCheckingAuth) return <LoadingSpinner />;
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 to-emerald-900 
@@ -64,9 +75,9 @@ function App() {
         <Route
           path="/verify/email"
           element={
-            <ProtectedRoute>
+            <RedirectRoute>
               <EmailVerificationPage />
-            </ProtectedRoute>
+            </RedirectRoute>
           }
         />
       </Routes>

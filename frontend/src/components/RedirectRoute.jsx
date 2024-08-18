@@ -10,11 +10,11 @@ import { useAuthStore } from "../store/authStore";
 
 const RedirectRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
-
-  // If authenticated and user is verified, redirect to home page
-  if (isAuthenticated && user.isVerified) {
-    return <Navigate to="/" replace />;
-  }
+  if (!isAuthenticated && user?.isVerified)
+    return <Navigate to="/login" replace />;
+  if (isAuthenticated && !user?.isVerified)
+    return <Navigate to="/verify/email" replace />;
+  if (isAuthenticated && user?.isVerified) return <Navigate to="/" replace />;
   return children;
 };
 

@@ -8,15 +8,13 @@ import { useAuthStore } from "../store/authStore";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const { error, isLoading } = useAuthStore();
+  const { login, error, isLoading } = useAuthStore();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // TODO: Add login logic
     try {
-      navigate("/verify/email");
+      await login(email, password);
     } catch (error) {
       console.log(error.response.data.message);
     }

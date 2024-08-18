@@ -42,7 +42,26 @@ export const useAuthStore = create((set) => ({
   /**
    * Logs in the user with the provided credentials.
    */
-  login: async () => {},
+  login: async (email, password) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, {
+        email,
+        password,
+      });
+      set({
+        user: response.data.user,
+        isLoading: false,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      set({
+        error: error.response.data.message || "Error logging in",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
 
   /**
    * Logs out the current user.
@@ -84,9 +103,11 @@ export const useAuthStore = create((set) => ({
    *
    */
   checkAuth: async () => {
+    // Simulate a delay for demonstration purposes (2 seconds) before checking authentication status.
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     set({ isCheckingAuth: true, error: null });
     try {
-      const response = axios.get(`${BASE_URL}/auth`);
+      const response = await axios.get(`${BASE_URL}/auth`);
       set({
         user: response.data.user,
         isCheckingAuth: false,
