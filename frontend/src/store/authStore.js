@@ -69,7 +69,20 @@ export const useAuthStore = create((set) => ({
    * This function sends a request to the server to log out the user.
    * It clears the user data from the store and sets the authentication status to false.
    */
-  logout: async () => {},
+  logout: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      await axios.post(`${BASE_URL}/logout`);
+      set({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+      });
+    } catch (error) {
+      set({ error: "Error logging out", isLoading: false });
+      throw error;
+    }
+  },
 
   /**
    * Verifies the user's email using the provided verification code.

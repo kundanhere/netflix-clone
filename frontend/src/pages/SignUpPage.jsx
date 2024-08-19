@@ -16,7 +16,6 @@ const SignUpPage = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    // TODO: Add signup logic
     try {
       await signup(username, email, password);
       navigate("/verify/email");
