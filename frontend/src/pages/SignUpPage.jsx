@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
-import { Loader, Lock, Mail, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Loader, Lock, Mail, User } from "lucide-react";
+import { motion } from "framer-motion";
+
+import { useAuthStore } from "../store/authStore";
 import Input from "../components/Input";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
-import { useAuthStore } from "../store/authStore";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState("");
