@@ -10,6 +10,7 @@ const BASE_URL = "http://localhost:8000/api/v1/account";
 export const useAuthStore = create((set) => ({
   user: null,
   error: null,
+  message: null,
   isLoading: false,
   isAuthenticated: false,
   isCheckingAuth: true,
@@ -128,6 +129,57 @@ export const useAuthStore = create((set) => ({
       });
     } catch (error) {
       set({ error: null, isCheckingAuth: false, isAuthenticated: false });
+    }
+  },
+
+  /**
+   * Sends a password reset email to the provided email address.
+   *
+   * This function makes a POST request to the server's forgot password endpoint.
+   * If the email address is valid, the server sends a password reset email to the user.
+   * The function updates the store's loading state, error message, and success message accordingly.
+   *
+   * @param {string} email - The email address of the user who requested the password reset.
+   * @returns {Promise<void>} - A promise that resolves when the password reset email is sent successfully.
+   * @throws {Error} - Throws an error if the request fails or if the server returns an error message.
+   */
+  forgotPassword: async (email) => {
+    set({ isLoading: true, error: null, message: null });
+    try {
+      const response = await axios.post(`${BASE_URL}/forgot/password`, {
+        email,
+      });
+      set({ isLoading: false, message: response.data.message });
+    } catch (error) {
+      set({
+        error:
+          error.response.data.message || "Error sending password reset email",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
+
+  /**
+   * Resets the user's password using the provided reset token and new password.
+   *
+   * This function makes a POST request to the server's reset password endpoint.
+   * If the reset token is valid and the new password is provided, the server resets the user's password.
+   */
+  resetPassword: async (resetToken, newPassword) => {
+    set({ isLoading: true, error: null, message: "Resetting password" });
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/reset/password/${resetToken}`,
+        { password: newPassword },
+      );
+      set({ isLoading: false, error: null, message: response.data.message });
+    } catch (error) {
+      set({
+        error: error.response.data.message || "Error resetting password",
+        isLoading: false,
+      });
+      throw error;
     }
   },
 }));

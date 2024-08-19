@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FloatingShape from "./components/FloatingShape";
 import LoadingSpinner from "./components/LoadingSpinner";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SingUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -77,6 +79,22 @@ function App() {
           element={
             <RedirectRoute>
               <EmailVerificationPage />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/forgot/password"
+          element={
+            <RedirectRoute>
+              <ForgotPasswordPage />
+            </RedirectRoute>
+          }
+        />
+        <Route
+          path="/reset/password/:token"
+          element={
+            <RedirectRoute>
+              <ResetPasswordPage />
             </RedirectRoute>
           }
         />
