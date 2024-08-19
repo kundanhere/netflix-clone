@@ -220,7 +220,7 @@ export const forgotPassword = async (req, res) => {
 
     // send password reset link to the user via email, and send success message
     const clientUrl = getClientUrl();
-    const resetPasswordUrl = `${clientUrl}/api/v1/account/forgot/password/${resetToken}`;
+    const resetPasswordUrl = `${clientUrl}/reset/password/${resetToken}`;
 
     await sendPasswordResetEmail(user.email, resetPasswordUrl);
 
@@ -250,7 +250,7 @@ export const resetPassword = async (req, res) => {
 
     if (!user) {
       return res
-        .status(404)
+        .status(400)
         .json({ success: false, message: "Invalid or expired reset token" });
     }
 
