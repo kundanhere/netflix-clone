@@ -13,6 +13,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SingUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
+import Page404 from "./pages/Page404";
 
 function App() {
   const { isCheckingAuth, checkAuth } = useAuthStore();
@@ -98,6 +99,8 @@ function App() {
             </RedirectRoute>
           }
         />
+        {/* catch all routes */}
+        <Route path="/*" element={<Page404 />} />
       </Routes>
       <Toaster />
     </div>
