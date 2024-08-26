@@ -1,12 +1,17 @@
+import path from "path";
 import dotenv from "dotenv";
 
 /**
- * This function loads environment variables from a .env file located at the specified path.
+ * This loads environment variables from a .env file located at the specified path.
  * It uses the dotenv package to achieve this.
  *
- * @param {string} options.path - The path to the .env file.
+ * @param {string} filePath - The path to the .env file.
  */
-dotenv.config({ path: "../.env" });
+const filePath =
+  process.env.NODE_ENV === "production"
+    ? path.resolve(".env")
+    : path.resolve("../.env");
+dotenv.config({ path: filePath });
 
 /**
  * This object contains environment variables used throughout the application.
@@ -22,14 +27,14 @@ dotenv.config({ path: "../.env" });
  * @property {string} MAILTRAP_TOKEN - The token for Mailtrap SMTP service.
  * @property {string} MAILTRAP_ENDPOINT - The endpoint for Mailtrap SMTP service.
  */
-
 export const ENV_VARS = {
   // APP configuration
   MONGO_URI: process.env.MONGO_URI,
   PORT: process.env.SERVER_PORT || 8000,
   NODE_ENV: process.env.NODE_ENV || "development",
-  CLIENT_PORT: process.env.CLIENT_PORT || 3000,
+  CLIENT_PORT: process.env.CLIENT_PORT || 5173,
   CLIENT_HOST: process.env.CLIENT_HOST || "localhost",
+  CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
 
   // JWT configuration
   JWT_SECRET: process.env.JWT_SECRET,

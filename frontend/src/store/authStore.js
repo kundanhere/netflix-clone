@@ -5,7 +5,10 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // Base URL for API requests.
-const BASE_URL = "http://localhost:8000/api/v1/account";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:8000/api/v1/account"
+    : "/api/v1/account";
 
 export const useAuthStore = create((set) => ({
   user: null,

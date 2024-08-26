@@ -3,7 +3,6 @@ import User from "../models/user.model.js";
 import {
   generateTokenAndSetCookie,
   generateVerificationToken,
-  getClientUrl,
 } from "../helpers/helper.js";
 import {
   sendVerificationEmail,
@@ -219,7 +218,7 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // send password reset link to the user via email, and send success message
-    const clientUrl = getClientUrl();
+    const clientUrl = ENV_VARS.CLIENT_URL;
     const resetPasswordUrl = `${clientUrl}/reset/password/${resetToken}`;
 
     await sendPasswordResetEmail(user.email, resetPasswordUrl);

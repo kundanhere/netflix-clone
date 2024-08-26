@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^1.7.4",
     "framer-motion": "^11.3.28",
+    "lucide-react": "^0.428.0",
+    "netflix-clone": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",

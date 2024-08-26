@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import authRoutes from "./routes/auth.route.js";
 import { ENV_VARS } from "./config/env.config.js";
@@ -13,6 +14,12 @@ import { getClientUrl } from "./helpers/helper.js";
  * @returns {express.Application} - The configured Express application instance.
  */
 const app = express();
+
+/**
+ * Sets up environment variables from the.env file.
+ * This should be done before any other imports or setup.
+ */
+const __dirname = path.resolve();
 
 /**
  * Configures and applies the CORS middleware to the Express application instance.
@@ -33,10 +40,6 @@ app.use(express.json());
  */
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
-
 /**
  * Defines a route for the '/api/v1/account' path using the imported authRoutes.
  *
@@ -44,6 +47,13 @@ app.get("/", (req, res) => {
  */
 app.use("/api/v1/account", authRoutes);
 
+if (ENV_VARS.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 /**
  * Connects to MongoDB and starts the Express server.
  *
@@ -54,5 +64,6 @@ app.use("/api/v1/account", authRoutes);
 const PORT = ENV_VARS.PORT;
 app.listen(PORT, () => {
   console.log(`Server is up and running on port: ${PORT}`);
+  console.log(`➜  Local:   http://localhost:${PORT}`);
   connectDB();
 });
