@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 /**
  * This function loads environment variables from a .env file located at the specified path.
@@ -6,7 +6,7 @@ import dotenv from "dotenv";
  *
  * @param {string} options.path - The path to the .env file.
  */
-dotenv.config({ path: "../.env" });
+dotenv.config({ path: '../.env' });
 
 /**
  * This object contains environment variables used throughout the application.
@@ -27,9 +27,9 @@ export const ENV_VARS = {
   // APP configuration
   MONGO_URI: process.env.MONGO_URI,
   PORT: process.env.SERVER_PORT || 8000,
-  NODE_ENV: process.env.NODE_ENV || "development",
+  NODE_ENV: process.env.NODE_ENV || 'development',
   CLIENT_PORT: process.env.CLIENT_PORT || 3000,
-  CLIENT_HOST: process.env.CLIENT_HOST || "localhost",
+  CLIENT_HOST: process.env.CLIENT_HOST || 'localhost',
 
   // JWT configuration
   JWT_SECRET: process.env.JWT_SECRET,

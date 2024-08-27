@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import { ENV_VARS } from "../config/env.config.js";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import { ENV_VARS } from '../config/env.config.js';
 
 // Constants for helper functions
-const PROILE_PICS = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];
+const PROILE_PICS = ['/avatar1.png', '/avatar2.png', '/avatar3.png'];
 const SALT_WORK_FACTOR = 10;
 
 /**
@@ -18,17 +18,17 @@ const SALT_WORK_FACTOR = 10;
 export const getCurrentDateTime = () => {
   const currentdate = new Date();
   const datetime =
-    "Last Sync: " +
+    'Last Sync: ' +
     currentdate.getDate() +
-    "/" +
+    '/' +
     (currentdate.getMonth() + 1) +
-    "/" +
+    '/' +
     currentdate.getFullYear() +
-    " @ " +
+    ' @ ' +
     currentdate.getHours() +
-    ":" +
+    ':' +
     currentdate.getMinutes() +
-    ":" +
+    ':' +
     currentdate.getSeconds();
   return datetime;
 };
@@ -80,13 +80,15 @@ export const generateVerificationToken = () => {
  */
 export const generateTokenAndSetCookie = (payload, res) => {
   // Generate a token
-  const token = jwt.sign({ payload }, ENV_VARS.JWT_SECRET, { expiresIn: "7d" });
+  const token = jwt.sign({ payload }, ENV_VARS.JWT_SECRET, {
+    expiresIn: '7d',
+  });
   // Set a cookie with the token
-  res.cookie("netflixToken", token, {
+  res.cookie('netflixToken', token, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: true, // secure cookie only accessible via HTTP, prevent XSS attacks cross-site scripting attacks, make it not be accessed by JS
-    secure: ENV_VARS.NODE_ENV === "production", // secure cookie only accessible over HTTPS (default is development)
-    sameSite: "strict", // prevent CSRF attacks cross-site request forgery attacks
+    secure: ENV_VARS.NODE_ENV === 'production', // secure cookie only accessible over HTTPS (default is development)
+    sameSite: 'strict', // prevent CSRF attacks cross-site request forgery attacks
   });
 
   return token;
@@ -128,7 +130,7 @@ export const hashPassword = async (password) => {
  */
 export const getClientUrl = () => {
   const { NODE_ENV, CLIENT_HOST, CLIENT_PORT } = ENV_VARS;
-  if (NODE_ENV === "development") {
+  if (NODE_ENV === 'development') {
     return `http://${CLIENT_HOST}:${CLIENT_PORT}`;
   }
   return `https://${CLIENT_HOST}:${CLIENT_PORT}`;

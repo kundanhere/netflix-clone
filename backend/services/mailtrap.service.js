@@ -1,10 +1,5 @@
-import {
-  mailtrapClient,
-  SENDER,
-  EMAIL_TEMPLATE_IDS,
-  EMAIL_TEMPLATE_VARIABLES,
-} from "../config/mailtrap.config.js";
-import { getCurrentDateTime } from "../helpers/helper.js";
+import { mailtrapClient, SENDER, EMAIL_TEMPLATE_IDS, EMAIL_TEMPLATE_VARIABLES } from '../config/mailtrap.config.js';
+import { getCurrentDateTime } from '../helpers/helper.js';
 
 /**
  * Sends a verification email with a verification code to the specified email address.
@@ -30,10 +25,10 @@ export const sendVerificationEmail = async (email, verificationCode) => {
       },
     });
     // If no error occurred, log the successful email sending
-    console.log("Verification email sent successfully", response);
+    console.log('Verification email sent successfully', response);
   } catch (error) {
     // In case of any error, log it and re-throw the error for proper handling
-    console.error("Error sending verification email", error);
+    console.error('Error sending verification email', error);
     throw new Error(`Couldn't send verification email: ${error.message}`);
   }
 };
@@ -56,10 +51,10 @@ export const sendWelcomeEmail = async (email, name) => {
       },
     });
     // If no error occurred, log the successful email sending
-    console.log("Welcome email sent successfully", response);
+    console.log('Welcome email sent successfully', response);
   } catch (error) {
     // In case of any error, log it and re-throw the error for proper handling
-    console.error("Error sending welcome email", error);
+    console.error('Error sending welcome email', error);
     throw new Error(`Couldn't send welcome email: ${error.message}`);
   }
 };
@@ -89,10 +84,10 @@ export const sendPasswordResetEmail = async (email, url) => {
       },
     });
     // If no error occurred, log the successful email sending
-    console.log("Password reset email sent successfully", response);
+    console.log('Password reset email sent successfully', response);
   } catch (error) {
     // In case of any error, log it and re-throw the error for proper handling
-    console.error("Error sending password reset email", error);
+    console.error('Error sending password reset email', error);
     throw new Error(`Couldn't send password reset email: ${error.message}`);
   }
 };
@@ -120,10 +115,10 @@ export const sendPasswordResetSuccessEmail = async (email) => {
       },
     });
     // If no error occurred, log the successful email sending
-    console.log("Password reset email sent successfully", response);
+    console.log('Password reset email sent successfully', response);
   } catch (error) {
     // In case of any error, log it and re-throw the error for proper handling
-    console.error("Error sending password reset email", error);
+    console.error('Error sending password reset email', error);
     throw new Error(`Couldn't send password reset email: ${error.message}`);
   }
 };

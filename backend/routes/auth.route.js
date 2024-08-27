@@ -9,8 +9,8 @@
  * @requires controllers/auth.controller
  */
 
-import express from "express";
-import { verifyToken } from "../middlewares/auth.middleware.js";
+import express from 'express';
+import { verifyToken } from '../middlewares/auth.middleware.js';
 import {
   login,
   signup,
@@ -19,7 +19,7 @@ import {
   verifyEmail,
   forgotPassword,
   resetPassword,
-} from "../controllers/auth.controller.js";
+} from '../controllers/auth.controller.js';
 
 /**
  * Express Router instance for handling authentication routes.
@@ -32,7 +32,7 @@ const router = express.Router();
  * @method GET
  * @route /api/v1/account/auth
  */
-router.get("/auth", verifyToken, checkAuth);
+router.get('/auth', verifyToken, checkAuth);
 
 /**
  * POST request handler for user signup.
@@ -40,7 +40,7 @@ router.get("/auth", verifyToken, checkAuth);
  * @method POST
  * @route /api/v1/account/signup
  */
-router.post("/signup", signup);
+router.post('/signup', signup);
 
 /**
  * POST request handler for user login.
@@ -48,7 +48,7 @@ router.post("/signup", signup);
  * @method POST
  * @route /api/v1/account/login
  */
-router.post("/login", login);
+router.post('/login', login);
 
 /**
  * POST request handler for user logout.
@@ -56,7 +56,7 @@ router.post("/login", login);
  * @method POST
  * @route /api/v1/account/logout
  */
-router.post("/logout", logout);
+router.post('/logout', logout);
 
 /**
  * POST request handler for verifying user email.
@@ -64,7 +64,7 @@ router.post("/logout", logout);
  * @method POST
  * @route /api/v1/account/verify/email
  */
-router.post("/verify/email", verifyEmail);
+router.post('/verify/email', verifyEmail);
 
 /**
  * POST request handler for sending password reset email.
@@ -72,7 +72,7 @@ router.post("/verify/email", verifyEmail);
  * @method POST
  * @route /api/v1/account/forgot/password
  */
-router.post("/forgot/password", forgotPassword);
+router.post('/forgot/password', forgotPassword);
 
 /**
  * POST request handler for resetting user password.
@@ -80,7 +80,7 @@ router.post("/forgot/password", forgotPassword);
  * @method POST
  * @route /api/v1/account/reset/password/?token=123456
  */
-router.post("/reset/password/:token", resetPassword);
+router.post('/reset/password/:token', resetPassword);
 
 /**
  * Export the Express Router instance for authentication routes.

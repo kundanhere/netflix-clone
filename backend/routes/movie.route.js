@@ -13,6 +13,7 @@ import {
   getSimilarMovies,
   getMovieTrailers,
   getMovieDetails,
+  getMoviesByCategory,
 } from '../controllers/movie.controller.js';
 
 /**
@@ -51,6 +52,14 @@ router.get('/:id/details', getMovieDetails);
  * @route /api/v1/movie/:id/similar
  */
 router.get('/:id/similar', getSimilarMovies);
+
+/**
+ * GET request handler for retrieving movies by category.
+ *
+ * @method GET
+ * @route /api/v1/movie/:category
+ */
+router.get('/:category', getMoviesByCategory);
 
 /**
  * Export the Express Router instance for movie routes.

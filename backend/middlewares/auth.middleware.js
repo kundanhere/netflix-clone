@@ -1,5 +1,5 @@
-import JWT from "jsonwebtoken";
-import { ENV_VARS } from "../config/env.config.js";
+import JWT from 'jsonwebtoken';
+import { ENV_VARS } from '../config/env.config.js';
 
 /**
  * Middleware function to verify and authenticate a JWT token.
@@ -19,9 +19,10 @@ export const verifyToken = async (req, res, next) => {
 
   // If no token is present, return an unauthorized response
   if (!token) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized - token not provided" });
+    return res.status(401).json({
+      success: false,
+      message: 'Unauthorized - token not provided',
+    });
   }
 
   // Verify the token using the JWT secret
@@ -30,15 +31,17 @@ export const verifyToken = async (req, res, next) => {
 
     // If the token is invalid, return an unauthorized response
     if (!decoded)
-      return res
-        .status(401)
-        .json({ success: false, message: "Unauthorized - invalid token" });
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized - invalid token',
+      });
 
     // If the token is expired, return an unauthorized response
     if (decoded.exp < Date.now() / 1000) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Unauthorized - token expired" });
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized - token expired',
+      });
     }
 
     // If the token is valid, attach the user's ID to the request and call the next function
@@ -47,8 +50,6 @@ export const verifyToken = async (req, res, next) => {
     next();
   } catch (error) {
     // If the token verification fails, return an error response
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error" });
+    return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };

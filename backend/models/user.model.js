@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-import { generateProfilePicture, hashPassword } from "../helpers/helper.js";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import { generateProfilePicture, hashPassword } from '../helpers/helper.js';
 
 /**
  * Defines a new schema for a user in the application.
@@ -23,18 +23,18 @@ const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, "Username is required"],
+      required: [true, 'Username is required'],
       unique: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
       index: { unique: true },
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
     },
     isVerified: {
       type: Boolean,
@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 /**
@@ -70,9 +70,9 @@ const userSchema = new mongoose.Schema(
  * @returns {void}
  * @throws Will throw an error if hashing the password fails.
  */
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   // only hash the password if it has been modified (or is new)
-  if (!this.isModified("password")) return next();
+  if (!this.isModified('password')) return next();
 
   try {
     const hashedPassword = await hashPassword(this.password);
@@ -98,9 +98,7 @@ userSchema.pre("save", async function (next) {
  * const isMatch = await user.comparePassword('password123');
  * console.log(isMatch); // Output: true
  */
-userSchema.methods.comparePassword = async function comparePassword(
-  userPassword,
-) {
+userSchema.methods.comparePassword = async function comparePassword(userPassword) {
   return bcrypt.compare(userPassword, this.password);
 };
 
@@ -112,6 +110,6 @@ userSchema.methods.comparePassword = async function comparePassword(
  * @returns {mongoose.Model<mongoose.Document>} - The newly created Mongoose model.
  * @throws Will throw an error if the model creation fails.
  */
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;
