@@ -4,7 +4,7 @@
   "description": "Netflix Clone with MERN Stack",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "format": "prettier --write ."
   },
   "keywords": [],

@@ -1,8 +1,11 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+
 import { ENV_VARS } from "./config/env.config.js";
 import { connectDB } from "./config/db.config.js";
 import authRoutes from "./routes/auth.route.js";
+import movieRoutes from "./routes/movie.route.js";
+import tvRoutes from "./routes/tv.route.js";
 
 /**
  * Initializes and configures the Express application instance.
@@ -10,12 +13,6 @@ import authRoutes from "./routes/auth.route.js";
  * @returns {express.Application} - The configured Express application instance.
  */
 const app = express();
-
-// Add middleware and routes to the Express application instance.
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
 
 /**
  * Uses express.json() middleware to parse incoming JSON requests
@@ -30,11 +27,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 /**
- * Defines a route for the '/api/v1/account' path using the imported authRoutes.
+ * Defines routes for the '/api/v1/account' , '/api/v1/movie' , '/api/v1/tv' path.
  *
  * @param {express.Router} authRoutes - The imported Express Router instance for handling account-related routes.
+ * @param {express.Router} movieRoutes - The imported Express Router instance for handling movie-related routes.
+ * @param {express.Router} tvRoutes - The imported Express Router instance for handling TV show-related routes.
  */
 app.use("/api/v1/account", authRoutes);
+app.use("/api/v1/movie", movieRoutes);
+app.use("/api/v1/tv", tvRoutes);
 
 /**
  * Connects to MongoDB and starts the Express server.
@@ -46,5 +47,6 @@ app.use("/api/v1/account", authRoutes);
 const PORT = ENV_VARS.PORT;
 app.listen(PORT, () => {
   console.log(`Server is up and running on port: ${PORT}`);
+  console.log(`➜  Local:   http://localhost:${PORT}`);
   connectDB();
 });
