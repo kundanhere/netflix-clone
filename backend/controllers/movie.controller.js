@@ -73,6 +73,10 @@ export const getSimilarMovies = async (req, res) => {
   }
 };
 
+/**
+ * Fetches a list of popular, upcoming and top-rated movies from The Movie Database (TMDB) for a given genre.
+ * Returns a Promise that resolves with a JSON response containing a list of movies by category.
+ */
 export const getMoviesByCategory = async (req, res) => {
   try {
     const { category } = req.params;
