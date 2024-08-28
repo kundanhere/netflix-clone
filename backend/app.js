@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 
 import { ENV_VARS } from './config/env.config.js';
 import { connectDB } from './config/db.config.js';
+import { protectedRoute } from './middlewares/protectedRoute.js';
 import authRoutes from './routes/auth.route.js';
 import movieRoutes from './routes/movie.route.js';
 import tvRoutes from './routes/tv.route.js';
@@ -34,8 +35,8 @@ app.use(cookieParser());
  * @param {express.Router} tvRoutes - The imported Express Router instance for handling TV show-related routes.
  */
 app.use('/api/v1/account', authRoutes);
-app.use('/api/v1/movie', movieRoutes);
-app.use('/api/v1/tv', tvRoutes);
+app.use('/api/v1/movie', protectedRoute, movieRoutes);
+app.use('/api/v1/tv', protectedRoute, tvRoutes);
 
 /**
  * Connects to MongoDB and starts the Express server.
