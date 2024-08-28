@@ -80,9 +80,7 @@ export const generateVerificationToken = () => {
  */
 export const generateTokenAndSetCookie = (payload, res) => {
   // Generate a token
-  const token = jwt.sign({ payload }, ENV_VARS.JWT_SECRET, {
-    expiresIn: '7d',
-  });
+  const token = jwt.sign({ payload }, ENV_VARS.JWT_SECRET, { expiresIn: '7d' });
   // Set a cookie with the token
   res.cookie('netflixToken', token, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days

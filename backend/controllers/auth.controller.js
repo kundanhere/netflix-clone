@@ -30,10 +30,7 @@ export const signup = async (req, res) => {
 
     // validate password
     if (password.length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: 'Password must be at least 6 characters long',
-      });
+      return res.status(400).json({ success: false, message: 'Password must be at least 6 characters long' });
     }
 
     // check if username already exists
@@ -45,10 +42,7 @@ export const signup = async (req, res) => {
     // check if email already exists
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
-      return res.status(400).json({
-        success: false,
-        meesage: 'User with this email already exists',
-      });
+      return res.status(400).json({ success: false, meesage: 'User with this email already exists' });
     }
 
     // generate the token for email verification
@@ -82,10 +76,7 @@ export const signup = async (req, res) => {
   } catch (error) {
     // log error and return error message in response
     console.error('Error in signup controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -130,10 +121,7 @@ export const login = async (req, res) => {
   } catch (error) {
     // log error and return error message in response
     console.error('Error in login controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -162,10 +150,7 @@ export const verifyEmail = async (req, res) => {
 
     // checks if user is valid
     if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid or expired verification code',
-      });
+      return res.status(400).json({ success: false, message: 'Invalid or expired verification code' });
     }
 
     // update user's account to verified
@@ -179,18 +164,12 @@ export const verifyEmail = async (req, res) => {
     res.status(200).json({
       status: 'success',
       message: 'Account verified successfully',
-      user: {
-        ...user._doc,
-        password: undefined,
-      },
+      user: { ...user._doc, password: undefined },
     });
   } catch (error) {
     // log error and return error message in response
     console.error('Error in logout controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -219,17 +198,11 @@ export const forgotPassword = async (req, res) => {
 
     await sendPasswordResetEmail(user.email, resetPasswordUrl);
 
-    res.status(200).json({
-      success: true,
-      message: 'Password reset link sent',
-    });
+    res.status(200).json({ success: true, message: 'Password reset link sent' });
   } catch (error) {
     // log error and return error message in response
     console.error('Error in forgot password controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -248,10 +221,7 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Invalid or expired reset token',
-      });
+      return res.status(404).json({ success: false, message: 'Invalid or expired reset token' });
     }
 
     // update user's password and reset fields
@@ -262,17 +232,11 @@ export const resetPassword = async (req, res) => {
 
     // send password reset success email to the user, and send success message
     await sendPasswordResetSuccessEmail(user.email);
-    res.status(200).json({
-      success: true,
-      message: 'Password reset successfully',
-    });
+    res.status(200).json({ success: true, message: 'Password reset successfully' });
   } catch (error) {
     // log error and return error message in response
     console.error('Error in reset password controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -303,9 +267,6 @@ export const checkAuth = async (req, res) => {
   } catch (error) {
     // log error and return error message in response
     console.error('Error in checkAuth controller', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal Server Error',
-    });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };

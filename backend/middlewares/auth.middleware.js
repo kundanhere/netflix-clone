@@ -19,10 +19,7 @@ export const verifyToken = async (req, res, next) => {
 
   // If no token is present, return an unauthorized response
   if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: 'Unauthorized - token not provided',
-    });
+    return res.status(401).json({ success: false, message: 'Unauthorized - token not provided' });
   }
 
   // Verify the token using the JWT secret
@@ -30,18 +27,11 @@ export const verifyToken = async (req, res, next) => {
     const decoded = JWT.verify(token, ENV_VARS.JWT_SECRET);
 
     // If the token is invalid, return an unauthorized response
-    if (!decoded)
-      return res.status(401).json({
-        success: false,
-        message: 'Unauthorized - invalid token',
-      });
+    if (!decoded) return res.status(401).json({ success: false, message: 'Unauthorized - invalid token' });
 
     // If the token is expired, return an unauthorized response
     if (decoded.exp < Date.now() / 1000) {
-      return res.status(401).json({
-        success: false,
-        message: 'Unauthorized - token expired',
-      });
+      return res.status(401).json({ success: false, message: 'Unauthorized - token expired' });
     }
 
     // If the token is valid, attach the user's ID to the request and call the next function
