@@ -1,8 +1,10 @@
 import express from 'express';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 import { ENV_VARS } from './config/env.config.js';
 import { connectDB } from './config/db.config.js';
+import { getClientUrl } from './helpers/helper.js';
 import { protectedRoute } from './middlewares/protectedRoute.js';
 import authRoutes from './routes/auth.route.js';
 import movieRoutes from './routes/movie.route.js';
@@ -15,6 +17,13 @@ import searchRoutes from './routes/search.route.js';
  * @returns {express.Application} - The configured Express application instance.
  */
 const app = express();
+
+/**
+ * Configures and applies the CORS middleware to the Express application instance.
+ * getClientUrl is a function that retrieves the client's base URL. (e.g. http://localhost:5173)
+ */
+const baseURL = getClientUrl();
+app.use(cors({ origin: baseURL, credentials: true }));
 
 /**
  * Uses express.json() middleware to parse incoming JSON requests

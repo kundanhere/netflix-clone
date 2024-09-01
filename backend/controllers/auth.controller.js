@@ -19,13 +19,13 @@ export const signup = async (req, res) => {
   try {
     // validate request body fields and format data
     if (!username || !email || !password) {
-      return res.status(400).json({ success: false, meesage: 'All fields are required' });
+      return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
     // validate email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ success: false, meesage: 'Invalid email' });
+      return res.status(400).json({ success: false, message: 'Invalid email' });
     }
 
     // validate password
@@ -36,13 +36,13 @@ export const signup = async (req, res) => {
     // check if username already exists
     const existingUserByUsername = await User.findOne({ username });
     if (existingUserByUsername) {
-      return res.status(400).json({ success: false, meesage: 'Username already exists' });
+      return res.status(400).json({ success: false, message: 'Username already exists' });
     }
 
     // check if email already exists
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
-      return res.status(400).json({ success: false, meesage: 'User with this email already exists' });
+      return res.status(400).json({ success: false, message: 'User with this email already exists' });
     }
 
     // generate the token for email verification
