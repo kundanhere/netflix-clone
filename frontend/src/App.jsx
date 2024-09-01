@@ -1,5 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/home/HomePage';
 import Movies from './pages/MoviesPage';
@@ -9,8 +10,20 @@ import Login from './pages/LoginPage';
 import SignUp from './pages/SignUpPage';
 import NotFound from './pages/NotFoundPage';
 import Footer from './components/Footer';
+import { useAuthStore } from './store/authStore';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
+  const { checkAuth, isCheckingAuth, user } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
       <Routes>
@@ -20,10 +33,10 @@ function App() {
         <Route path="/search" element={<Search />} />
 
         {/* Add a route for the login page */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
 
         {/* Add a route for the registration page */}
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
 
         {/* Add more routes as needed */}
         {/* <Route path="/profile" element={<Profile />} />
