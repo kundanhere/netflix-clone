@@ -10,8 +10,8 @@ import Login from './pages/LoginPage';
 import SignUp from './pages/SignUpPage';
 import NotFound from './pages/NotFoundPage';
 import Footer from './components/Footer';
-import { useAuthStore } from './store/authStore';
 import LoadingSpinner from './components/LoadingSpinner';
+import { useAuthStore } from './store/auth.store.js';
 
 function App() {
   const { checkAuth, isCheckingAuth, user } = useAuthStore();

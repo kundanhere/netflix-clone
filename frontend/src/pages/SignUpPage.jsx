@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
+
+import { useAuthStore } from '../store/auth.store.js';
 
 const SignUpPage = () => {
   // Extract email from query parameters if provided
