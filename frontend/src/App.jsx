@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Home from './pages/home/HomePage';
 import Movies from './pages/MoviesPage';
@@ -32,6 +33,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <Toaster />
     </>
   );
 }
