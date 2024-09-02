@@ -23,7 +23,14 @@ const app = express();
  * getClientUrl is a function that retrieves the client's base URL. (e.g. http://localhost:5173)
  */
 const baseURL = getClientUrl();
-app.use(cors({ origin: baseURL, credentials: true }));
+app.use(
+  cors({
+    origin: baseURL,
+    methods: ['GET', 'POST', 'HEAD', 'PUT', 'PATCH', 'UPDATE', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 /**
  * Uses express.json() middleware to parse incoming JSON requests
