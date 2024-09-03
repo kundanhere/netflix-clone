@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { useAuthStore } from '../store/auth.store.js';
 
@@ -14,14 +15,16 @@ const SignUpPage = () => {
   // Initialize other state variables
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [error, setError] = useState('');
 
-  const { signup } = useAuthStore();
+  const { signup, error } = useAuthStore();
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(email, username, password);
-    signup({ username, email, password });
+    toast.promise(signup({ username, email, password }), {
+      loading: 'Signing up...',
+      success: <b>Signup successful!</b>,
+      error: <b>Signup failed</b>,
+    });
   };
 
   return (
@@ -63,6 +66,7 @@ const SignUpPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-4 mt-1 border border-gray-500 rounded-md bg-transparent text-white focus:outline-none focus:ring"
             />
+            {error && <p className="text-red-500">{error}</p>}
             <button className="w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700">
               Sign Up
             </button>

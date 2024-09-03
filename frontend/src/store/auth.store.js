@@ -4,30 +4,29 @@ import toast from 'react-hot-toast';
 
 export const useAuthStore = create((set) => ({
   user: null,
+  error: null,
   isSigningUp: false,
   isLoggingIn: false,
   isLoggingOut: false,
   isCheckingAuth: true,
   signup: async (credentials) => {
-    set({ user: null, isSigningUp: true });
+    set({ user: null, isSigningUp: true, error: null });
     try {
       const res = await axios.post('/api/v1/account/signup', credentials);
       set({ user: res.data.user, isSigningUp: false });
-      toast.success(res.data.message || 'Signup successful');
     } catch (error) {
-      set({ user: null, isSigningUp: false });
-      toast.error(error.response.data.message || 'Signup failed');
+      set({ isSigningUp: false, error: error.response.data.message });
+      throw error;
     }
   },
   login: async (credentials) => {
-    set({ user: null, isLoggingIn: true });
+    set({ user: null, isLoggingIn: true, error: null });
     try {
       const res = await axios.post('/api/v1/account/login', credentials);
       set({ user: res.data.user, isLoggingIn: false });
-      toast.success(res.data.message || 'Logged in successfully');
     } catch (error) {
-      set({ isLoggingIn: false });
-      toast.error(error.response.data.message || 'Failed to login');
+      set({ isLoggingIn: false, error: error.response.data.message });
+      throw error;
     }
   },
   logout: async () => {
@@ -47,7 +46,7 @@ export const useAuthStore = create((set) => ({
       const res = await axios.get('/api/v1/account/auth');
       set({ user: res.data.user, isCheckingAuth: false });
     } catch (error) {
-      set({ user: null, isCheckingAuth: false });
+      set({ isCheckingAuth: false });
     }
   },
   verifyEmail: async () => {},
