@@ -43,7 +43,7 @@ router.get('/movie/:query', searchMovie);
  * @method GET
  * @route /api/v1/search/tv/:query
  */
-router.get('/tv/:qyery', searchTvShow);
+router.get('/tv/:query', searchTvShow);
 
 /**
  * GET request handler to get search history.
