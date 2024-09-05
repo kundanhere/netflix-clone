@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Loader } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import { useAuthStore } from '../store/auth.store.js';
@@ -16,7 +17,7 @@ const SignUpPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signup, error } = useAuthStore();
+  const { isSigningUp, signup, error } = useAuthStore();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -34,7 +35,6 @@ const SignUpPage = () => {
           <img src="/netflix-logo.png" alt="app-logo" className="w-32 md:w-44" />
         </Link>
       </header>
-
       <div className="flex items-center justify-center mt-12 mx-3">
         <div className="w-full max-w-md px-16 py-10 space-y-6 bg-black/70 rounded-lg shadow-md">
           <h1 className="text-white text-4xl font-bold mb-4">Sign Up</h1>
@@ -67,8 +67,11 @@ const SignUpPage = () => {
               className="w-full px-4 py-4 mt-1 border border-gray-500 rounded-md bg-transparent text-white focus:outline-none focus:ring"
             />
             {error && <p className="text-red-500">{error}</p>}
-            <button className="w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700">
-              Sign Up
+            <button
+              className="w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700"
+              disabled={isSigningUp}
+            >
+              {isSigningUp ? <Loader className="size-6 animate-spin mx-auto" /> : 'Sign Up'}
             </button>
           </form>
           <div className="text-center text-gray-400">
