@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/tv" element={<TV />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={user ? <Search /> : <Navigate to="/login" />} />
         <Route path="/watch/:id" element={user ? <Watch /> : <Navigate to="/login" />} />
 
         {/* Add a route for the login page */}
@@ -45,7 +45,7 @@ function App() {
       <Route path="/settings" element={<Settings />} /> */}
 
         {/* Add a route for the 404 page */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
       <Toaster />
