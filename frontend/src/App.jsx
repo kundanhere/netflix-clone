@@ -6,6 +6,7 @@ import Home from './pages/home/HomePage';
 import Movies from './pages/MoviesPage';
 import TV from './pages/TvPage';
 import Search from './pages/SearchPage';
+import SearchHistory from './pages/SearchHistoryPage';
 import Watch from './pages/WatchPage';
 import Login from './pages/LoginPage';
 import SignUp from './pages/SignUpPage';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/tv" element={<TV />} />
         <Route path="/search" element={user ? <Search /> : <Navigate to="/login" />} />
+        <Route path="/history" element={user ? <SearchHistory /> : <Navigate to="/login" />} />
         <Route path="/watch/:id" element={user ? <Watch /> : <Navigate to="/login" />} />
 
         {/* Add a route for the login page */}
