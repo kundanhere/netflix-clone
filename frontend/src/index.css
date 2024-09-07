@@ -28,7 +28,7 @@
 }
 
 .hero-bg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('hero.png');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('/hero.png');
   background-repeat: no-repeat;
   background-size: cover;
 }

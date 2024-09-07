@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Logo from '../components/SiteLogo';
 
 const NotFoundPage = () => {
   return (
@@ -7,9 +8,7 @@ const NotFoundPage = () => {
       style={{ backgroundImage: `url('/404.png')` }}
     >
       <header className="absolute top-0 left-0 px-8 py-6 bg-black w-full ">
-        <Link to="/">
-          <img src="/netflix-logo.png" alt="site logo" className="h-9" />
-        </Link>
+        <Logo className="!w-auto !h-8" />
       </header>
       <main className="text-center error-page--content z-10 top-0 relative">
         <h1 className="text-7xl font-semibold mb-8">Lost your way?</h1>

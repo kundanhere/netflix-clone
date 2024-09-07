@@ -3,13 +3,14 @@ import { Toaster } from 'react-hot-toast';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/home/HomePage';
-import Movies from './pages/MoviesPage';
-import TV from './pages/TvPage';
 import Search from './pages/SearchPage';
 import SearchHistory from './pages/SearchHistoryPage';
 import Watch from './pages/WatchPage';
 import Login from './pages/LoginPage';
 import SignUp from './pages/SignUpPage';
+import ForgotPassword from './pages/ForgotPasswordPage';
+import ResetPassword from './pages/ResetPasswordPage';
+import EmailVerification from './pages/EmailVerificationPage';
 import NotFound from './pages/NotFoundPage';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -22,31 +23,32 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  if (isCheckingAuth) {
-    return <LoadingSpinner />;
-  }
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
     <>
       <Routes>
+        {/* protected routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/tv" element={<TV />} />
         <Route path="/search" element={user ? <Search /> : <Navigate to="/login" />} />
         <Route path="/history" element={user ? <SearchHistory /> : <Navigate to="/login" />} />
         <Route path="/watch/:id" element={user ? <Watch /> : <Navigate to="/login" />} />
 
-        {/* Add a route for the login page */}
+        {/* public routes for the authentication or authorization page */}
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-
-        {/* Add a route for the registration page */}
         <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
+        <Route path="/forgot/password" element={!user ? <ForgotPassword /> : <Navigate to="/" />} />
+        <Route path="/reset/password/:token" element={!user ? <ResetPassword /> : <Navigate to="/" />} />
+        <Route
+          path="/verify/email"
+          element={user && !user?.isVerified ? <EmailVerification /> : <Navigate to="/login" />}
+        />
 
         {/* Add more routes as needed */}
         {/* <Route path="/profile" element={<Profile />} />
       <Route path="/settings" element={<Settings />} /> */}
 
-        {/* Add a route for the 404 page */}
+        {/* route for the 404 page */}
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

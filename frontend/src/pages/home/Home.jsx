@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Info, Play } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
-import ContentSlider from '../../components/ContentSlider';
+import Category from '../../components/Category';
 import HomeScreenSkeleton from '../../components/skeletons/HomeScreenSkeleton';
 import useGetTrendingContent from '../../hooks/useGetTrendingContent';
 import { MOVIE_CATEGORIES, ORIGIN_IMG_BASE_URL, TV_CATEGORIES } from '../../utils/constants.js';
@@ -14,6 +14,7 @@ const Home = () => {
   const { trendingContent } = useGetTrendingContent();
   const { contentType } = useContentStore();
 
+  // render content loading skeleton
   if (!trendingContent) return <HomeScreenSkeleton />;
 
   return (
@@ -37,7 +38,7 @@ const Home = () => {
             </h1>
             <p className="mt-2 text-lg">
               {trendingContent?.release_date?.split('-')[0] || trendingContent?.first_air_date?.split('-')[0]} |{' '}
-              {trendingContent?.adult ? 'Adult 18+' : 'PG-13'}
+              {trendingContent?.adult ? '18+ Adult' : 'PG-13'}
             </p>
             <p className="mt-4 text-lg text-balance">
               {trendingContent?.overview?.length > 200
@@ -54,7 +55,7 @@ const Home = () => {
             </Link>
             <Link
               to={`/watch/${trendingContent?.id}`}
-              className="flex items-center bg-gray-500/70 hover:bg-gray-500 text-black py-2 px-4 rounded-lg"
+              className="flex items-center bg-gray-500/95 hover:bg-gray-500 text-black py-2 px-4 rounded-lg"
             >
               <Info className="size-4 mr-2" /> More Info
             </Link>
@@ -65,8 +66,8 @@ const Home = () => {
       {/* Categories slider */}
       <div className="flex flex-col gap-10 py-10 bg-black">
         {contentType === 'movie'
-          ? MOVIE_CATEGORIES.map((category) => <ContentSlider key={category} category={category} />)
-          : TV_CATEGORIES.map((category) => <ContentSlider key={category} category={category} />)}
+          ? MOVIE_CATEGORIES.map((category) => <Category key={category} category={category} />)
+          : TV_CATEGORIES.map((category) => <Category key={category} category={category} />)}
       </div>
     </>
   );
