@@ -126,9 +126,10 @@ export const hashPassword = async (password) => {
  *
  * @example
  * const clientUrl = getClientUrl();
- * console.log(clientUrl); // Output: 'http://localhost:3000' (or 'https://localhost:3000' in production)
+ * console.log(clientUrl); // Output: 'http://localhost:5173' (or 'http://localhost:8000' in production)
  */
 export const getClientUrl = () => {
-  const { NODE_ENV, CLIENT_HOST, CLIENT_PORT } = ENV_VARS;
-  return NODE_ENV === 'development' ? `http://${CLIENT_HOST}:${CLIENT_PORT}` : `https://${CLIENT_HOST}:${CLIENT_PORT}`;
+  const { NODE_ENV, CLIENT_HOST, CLIENT_PORT, PORT } = ENV_VARS;
+  console.log(NODE_ENV);
+  return NODE_ENV === 'development' ? `http://${CLIENT_HOST}:${CLIENT_PORT}` : `http://${CLIENT_HOST}:${PORT}`;
 };

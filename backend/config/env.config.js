@@ -1,3 +1,4 @@
+import path from 'path';
 import dotenv from 'dotenv';
 
 /**
@@ -6,7 +7,8 @@ import dotenv from 'dotenv';
  *
  * @param {string} options.path - The path to the .env file.
  */
-dotenv.config({ path: '../.env' });
+const filePath = process.env.NODE_ENV === 'production' ? path.resolve('.env') : path.resolve('../.env');
+dotenv.config({ path: filePath });
 
 /**
  * This object contains environment variables used throughout the application.

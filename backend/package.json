@@ -19,7 +19,8 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.4.0",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "netflix-clone": "file:.."
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

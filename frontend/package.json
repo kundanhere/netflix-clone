@@ -12,6 +12,7 @@
     "axios": "^1.7.7",
     "framer-motion": "^11.5.4",
     "lucide-react": "^0.437.0",
+    "netflix-clone": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",

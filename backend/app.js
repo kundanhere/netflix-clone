@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 import { ENV_VARS } from './config/env.config.js';
 import { connectDB } from './config/db.config.js';
@@ -17,6 +18,12 @@ import searchRoutes from './routes/search.route.js';
  * @returns {express.Application} - The configured Express application instance.
  */
 const app = express();
+
+/**
+ * Sets up environment variables from the.env file.
+ * This should be done before any other imports or setup.
+ */
+const __dirname = path.resolve();
 
 /**
  * Configures and applies the CORS middleware to the Express application instance.
@@ -56,6 +63,17 @@ app.use('/api/v1/account', authRoutes);
 app.use('/api/v1/movie', protectedRoute, movieRoutes);
 app.use('/api/v1/tv', protectedRoute, tvRoutes);
 app.use('/api/v1/search', protectedRoute, searchRoutes);
+
+/**
+ * Serves the production build of the frontend if the NODE_ENV environment variable is set to "production".
+ */
+if (ENV_VARS.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  });
+}
 
 /**
  * Connects to MongoDB and starts the Express server.

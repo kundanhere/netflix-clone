@@ -50,7 +50,7 @@ const EmailVerificationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const verificationCode = code.join('');
-    if (!verificationCode || isNaN(verificationCode)) return toast.error('Invalid - Code must be a number.');
+    if (!verificationCode || isNaN(verificationCode)) return toast.error('Invalid Request - Code must be a number.');
     try {
       await verifyEmail(verificationCode);
       navigate('/');
