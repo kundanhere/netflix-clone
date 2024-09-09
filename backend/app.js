@@ -82,9 +82,10 @@ if (ENV_VARS.NODE_ENV === 'production') {
  * @param {express.Application} app - The Express application instance.
  * @param {function} connectDB - The function to connect to MongoDB.
  */
-const PORT = ENV_VARS.PORT;
+const { PORT, CLIENT_URL } = ENV_VARS;
 app.listen(PORT, () => {
   console.log(`Server is up and running on port: ${PORT}`);
-  console.log(`➜  Local:   http://localhost:${PORT}`);
+  console.log(`➜  Local Server:   http://localhost:${PORT}`);
+  console.log(`➜  Website:   ${CLIENT_URL}`);
   connectDB();
 });

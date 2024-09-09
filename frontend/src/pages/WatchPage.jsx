@@ -131,10 +131,10 @@ const WatchPage = () => {
                         <span className="text-green-600">PG-13</span>
                       )}{' '}
                     </p>
-                    <p className="mt-4 text-balance text-xs md:text-lg leading-6">{content?.overview}</p>
+                    <p className="mt-4 text-balance text-slate-200 text-xs md:text-lg leading-5">{content?.overview}</p>
                   </div>
 
-                  <div className="bg-red-300 p-4 rounded-2xl h-[420px] max-h-[420px] w-full md:w-1/3 group relative overflow-hidden ring-1 ring-inset ring-offset-0 ring-offset-white ring-[#454e5d80] ">
+                  <div className="p-4 rounded-2xl h-[420px] max-h-[420px] w-full md:w-1/3 group relative overflow-hidden ring-1 ring-inset ring-offset-0 ring-offset-white ring-[#454e5d80] ">
                     <img
                       src={ORIGIN_IMG_BASE_URL + content?.poster_path}
                       alt={content.title || content.name}

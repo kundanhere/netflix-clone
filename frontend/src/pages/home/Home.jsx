@@ -64,7 +64,7 @@ const Home = () => {
       </div>
 
       {/* Categories slider */}
-      <div className="flex flex-col gap-10 py-10 bg-black">
+      <div className="flex flex-col gap-2 md:gap-8 py-10 bg-black">
         {contentType === 'movie'
           ? MOVIE_CATEGORIES.map((category) => <Category key={category} category={category} />)
           : TV_CATEGORIES.map((category) => <Category key={category} category={category} />)}

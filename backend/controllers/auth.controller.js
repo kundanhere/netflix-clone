@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import User from '../models/user.model.js';
-import { generateTokenAndSetCookie, generateVerificationToken, getClientUrl } from '../helpers/helper.js';
+import { ENV_VARS } from '../config/env.config.js';
+import { generateTokenAndSetCookie, generateVerificationToken } from '../helpers/helper.js';
 import {
   sendVerificationEmail,
   sendWelcomeEmail,
@@ -198,8 +199,7 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // send password reset link to the user via email, and send success message
-    const clientUrl = getClientUrl();
-    const resetPasswordUrl = `${clientUrl}/reset/password/${resetToken}`;
+    const resetPasswordUrl = `${ENV_VARS.CLIENT_URL}/reset/password/${resetToken}`;
 
     await sendPasswordResetEmail(user.email, resetPasswordUrl);
 

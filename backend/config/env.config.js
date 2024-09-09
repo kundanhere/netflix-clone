@@ -32,6 +32,7 @@ export const ENV_VARS = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   CLIENT_PORT: process.env.CLIENT_PORT || 3000,
   CLIENT_HOST: process.env.CLIENT_HOST || 'localhost',
+  CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
 
   // JWT configuration
   JWT_SECRET: process.env.JWT_SECRET,

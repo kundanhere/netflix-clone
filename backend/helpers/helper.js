@@ -130,6 +130,5 @@ export const hashPassword = async (password) => {
  */
 export const getClientUrl = () => {
   const { NODE_ENV, CLIENT_HOST, CLIENT_PORT, PORT } = ENV_VARS;
-  console.log(NODE_ENV);
   return NODE_ENV === 'development' ? `http://${CLIENT_HOST}:${CLIENT_PORT}` : `http://${CLIENT_HOST}:${PORT}`;
 };
