@@ -11,7 +11,7 @@ const SimilarContentCard = ({ item }) => {
           alt={item.title}
         />
       </div>
-      <h4 className="mt-2 text-lg font-semibold">{item.title || item.name}</h4>
+      <h4 className="mt-2 text-xs lg:text-md font-semibold leading-5">{item.title || item.name}</h4>
     </Link>
   );
 };

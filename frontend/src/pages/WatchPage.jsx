@@ -120,7 +120,9 @@ const WatchPage = () => {
                 {/* content details */}
                 <div className="flex flex-col md:flex-row items-start justify-between gap-8 max-w-6xl mx-auto my-12">
                   <div className="mb-4 md:mb-0 w-full md:w-1/2">
-                    <h2 className="text-5xl font-bold text-balance">{content?.title || content?.name}</h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-balance">
+                      {content?.title || content?.name}
+                    </h2>
                     <p className="mt-2 text-lg">
                       {formatReleaseDate(content?.release_date || content?.first_air_date)} |{' '}
                       {content?.adult ? (
@@ -129,7 +131,7 @@ const WatchPage = () => {
                         <span className="text-green-600">PG-13</span>
                       )}{' '}
                     </p>
-                    <p className="mt-4 text-lg">{content?.overview}</p>
+                    <p className="mt-4 text-balance text-xs md:text-lg leading-6">{content?.overview}</p>
                   </div>
 
                   <div className="bg-red-300 p-4 rounded-2xl h-[420px] max-h-[420px] w-full md:w-1/3 group relative overflow-hidden ring-1 ring-inset ring-offset-0 ring-offset-white ring-[#454e5d80] ">

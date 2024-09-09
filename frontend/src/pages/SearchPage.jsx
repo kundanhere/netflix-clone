@@ -93,10 +93,10 @@ const SearchPage = () => {
         </form>
 
         {/* display Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-x-4 md:gap-y-8 md:px-4">
           {results.map((result) =>
             !result.poster_path && !result.profile_path ? null : (
-              <div key={result.id} className="p-4 rounded-3xl">
+              <div key={result.id} className="rounded-3xl">
                 <Card data={result} type={activeTab} onClick={() => setContentType(activeTab)} />
               </div>
             )

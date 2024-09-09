@@ -7,7 +7,7 @@ const Card = ({ data, type, onClick }) => {
 
   return (
     <div>
-      <div className="p-4 rounded-2xl h-96 group relative overflow-hidden ring-1 ring-inset ring-offset-0 ring-offset-white ring-[#454e5d80] ">
+      <div className="p-2 md:p-4 rounded-2xl h-64 md:h-96 group relative overflow-hidden ring-1 ring-inset ring-offset-0 ring-offset-white ring-[#454e5d80] ">
         <Link to={'/watch/' + data.id} onClick={onClick}>
           <img
             src={imageSrc}
@@ -18,11 +18,11 @@ const Card = ({ data, type, onClick }) => {
             src={imageSrc}
             alt={data.title || data.name}
             aria-hidden="true"
-            className="h-96 w-full rounded-xl object-cover absolute top-2 left-1/2 -translate-x-1/2 blur-xl z-10"
+            className="h-80 md:h-96 w-full rounded-xl object-cover absolute top-2 left-1/2 -translate-x-1/2 blur-xl z-10"
           />
         </Link>
       </div>
-      <h2 className="mt-2 text-lg font-semibold">{data.title || data.name}</h2>
+      <h2 className="mt-2 text-xs lg:text-md font-semibold leading-5">{data.title || data.name}</h2>
     </div>
   );
 };

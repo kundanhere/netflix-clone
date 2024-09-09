@@ -42,10 +42,10 @@ const ForgotPasswordPage = () => {
       </header>
       <MotionDiv className="flex flex-col items-center justify-center mt-12 mx-3">
         <div className="w-full max-w-md px-16 py-10 space-y-6 bg-black/70 rounded-lg shadow-md">
-          <h1 className="text-white text-4xl font-bold mb-4">Forgot Password</h1>
+          <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-center">Forgot Password</h1>
           {!isSubmitted ? (
             <form onSubmit={handleSubmit}>
-              <p className="text-gray-300 mb-6 text-center">
+              <p className="text-gray-300 mb-6 text-center text-xs leading-6">
                 Enter your email address and we&apos;ll send you a link to reset your password.
               </p>
               <Input
@@ -73,7 +73,7 @@ const ForgotPasswordPage = () => {
               >
                 <Mail className="h-8 w-8 text-white" />
               </motion.div>
-              <p className="text-gray-300 mb-6 text-balance">
+              <p className="text-gray-300 mb-6 text-center text-xs leading-6">
                 If an account exists for <b>{email}</b>, you will receive a password reset link shortly.
               </p>
             </div>

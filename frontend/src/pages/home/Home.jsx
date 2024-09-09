@@ -33,23 +33,23 @@ const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-8 md:px-16 lg:32">
           <div className="bg-gradient-to-br from-black  to-transparent absolute top-0 left-0 w-full h-full -z-10" />
           <div className="max-w-2xl">
-            <h1 className="mt-4 text-6xl font-extrabold text-balance">
+            <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-balance">
               {trendingContent?.title || trendingContent?.name}
             </h1>
-            <p className="mt-2 text-lg">
+            <p className="mt-2 text-md">
               {trendingContent?.release_date?.split('-')[0] || trendingContent?.first_air_date?.split('-')[0]} |{' '}
               {trendingContent?.adult ? '18+ Adult' : 'PG-13'}
             </p>
-            <p className="mt-4 text-lg text-balance">
+            <p className="mt-4 md:mb-8 text-balance text-xs md:text-lg leading-5">
               {trendingContent?.overview?.length > 200
                 ? trendingContent?.overview?.slice(0, 200) + '...'
                 : trendingContent?.overview}
             </p>
           </div>
-          <div className="mt-8 flex gap-2">
+          <div className="mt-8 md:mt-2 flex gap-2">
             <Link
               to={`/watch/${trendingContent?.id}`}
-              className="flex items-center bg-white font-bold text-black py-2 px-4 rounded-lg hover:bg-white/80"
+              className="flex items-center bg-white font-bold text-black py-2 px-3 rounded-lg hover:bg-white/80"
             >
               <Play className="size-4 mr-2 fill-black" /> Watch Now
             </Link>

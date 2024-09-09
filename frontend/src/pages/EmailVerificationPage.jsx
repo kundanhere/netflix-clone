@@ -75,8 +75,10 @@ const EmailVerificationPage = () => {
       </header>
       <MotionDiv className="flex items-center justify-center mt-12 mx-3">
         <div className="w-full max-w-md px-16 py-10 space-y-6 bg-black/70 rounded-lg shadow-md">
-          <h1 className="text-white text-4xl font-bold mb-4">Verify Your Email</h1>
-          <p className="text-left text-gray-300 mb-6">Enter the 6-digit code sent to your email address.</p>
+          <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Verify Your Email</h1>
+          <p className="text-left text-gray-300 mb-6 text-xs leading-6">
+            Enter the 6-digit code sent to your email address.
+          </p>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex justify-between">
               {code.map((digit, index) => (

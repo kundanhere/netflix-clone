@@ -20,7 +20,7 @@ const Slider = ({ title, children }) => {
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <h2 className="text-xl font-semibold mb-4 md:text-2xl">{title}</h2>
       <div className="flex space-x-4 overflow-x-auto no-scrollbar" ref={sliderRef}>
         {children}
       </div>

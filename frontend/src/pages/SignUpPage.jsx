@@ -66,7 +66,7 @@ const SignUpPage = () => {
       </header>
       <MotionDiv className="flex items-center justify-center mt-12 mx-3">
         <div className="w-full max-w-md px-16 py-10 space-y-6 bg-black/70 rounded-lg shadow-md mb-12">
-          <h1 className="text-white text-4xl font-bold mb-4">Sign Up</h1>
+          <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Sign Up</h1>
           <form className="space-y-4" onSubmit={handleOnSubmit}>
             <Input
               icon={Mail}
