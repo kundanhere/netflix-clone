@@ -19,6 +19,8 @@
   </tr>
 </table>
 
+![GitHub repo size](https://img.shields.io/github/repo-size/kundanhere/netflix-clone)
+
 ## About This Project:
 
 ⚛️ Tech Stack: <kbd>[React.js](https://react.dev/learn/installation)</kbd>, <kbd>[Node.js](https://nodejs.org/en/download/package-manager)</kbd>, <kbd>[Express.js](https://expressjs.com)</kbd>, <kbd>[MongoDB](https://www.mongodb.com)</kbd>, <kbd>[Tailwind CSS](https://tailwindcss.com/docs/installation)</kbd>
@@ -189,7 +191,7 @@ JWT_SECRET=your_jwt_secret
 # Database integration
 MONGO_URI=your_mongodb_uri
 
-#TMDB API integration
+# TMDB API integration
 TMDB_API_KEY=your_tmdb_api_key
 
 # Mailtrap integration
