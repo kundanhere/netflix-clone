@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "SET NODE_ENV=development&& concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
-    "start": "NODE_ENV=production&& node backend/app.js",
+    "start": "NODE_ENV=production&& node backend/index.js",
     "build": "npm install && npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
     "format": "prettier --print-width=120 --write ."
   },
